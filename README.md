@@ -1,14 +1,14 @@
 ## Reynoso Matias tp1 
   
-### Se necesita al menos 1 consumidor para que el stock llegue a 0, ya que el productor tiene un tiempo finito de produccion.
+- Se necesita al menos 1 consumidor para que el stock llegue a 0, ya que el productor tiene un tiempo finito de produccion.
   
-### Los bloques synchronized deben serlo así, para asegurar de que ingrese un hilo a la vez.
+- Los bloques synchronized deben serlo así, para asegurar de que ingrese un hilo a la vez.
 
-### El recurso compartido (BeerHouse) es por el cual compiten los Threads y contiene los metodos synchronized.
-### Tanto el productor como el consumidor tienen un listado de cervezas compartido. Ambos eligen un tipo de aleatorio de cerveza
-### para producir o consumir segun corresponda.
-### La clase BeerHouse maneja el stock de cerveza y sus metodos son los que dedicen cuando un hilo debe esperar, continuar o
-### interrumpir su ejecucion.
+- El recurso compartido (BeerHouse) es por el cual compiten los Threads y contiene los metodos synchronized.
+Tanto el productor como el consumidor tienen un listado de cervezas compartido. Ambos eligen un tipo de aleatorio de cerveza
+para producir o consumir segun corresponda.
+La clase BeerHouse maneja el stock de cerveza y sus metodos son los que dedicen cuando un hilo debe esperar, continuar o
+interrumpir su ejecucion.
 
 ### Las 3 formas de instanciar un Thread son:
 
