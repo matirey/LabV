@@ -28,14 +28,15 @@ public class BeerConsumer extends Thread {
     }
 
     public void run(){
-        int i;
-        for (i=0;i<10;i++){
-            this.bar.Consume(this.name, this.RndBeer(), this.RndCant());
-            try {
-                sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        boolean finish=false;
+        while(!finish){
+                this.bar.Consume(this.name, this.RndBeer(), this.RndCant());
+                try {
+                    sleep(3000);
+                } catch (InterruptedException e) {
+                    System.out.println(this.name+" has left the bar");
+                    finish=true;
+                }
         }
     }
 }

@@ -23,6 +23,7 @@ public class BeerProductor extends Thread {
 
     public void run(){
         int i;
+        this.bar.setWorking(true);
         for (i=0;i<10;i++){
             this.bar.Produce(this.name,RndBeer());
             try {
@@ -31,5 +32,6 @@ public class BeerProductor extends Thread {
                 e.printStackTrace();
             }
         }
+        this.bar.setWorking(false);
     }
 }

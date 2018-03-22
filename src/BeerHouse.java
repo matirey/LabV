@@ -7,6 +7,24 @@ import java.util.Set;
 public class BeerHouse {
 
     private HashMap<String, Integer> stock;
+    private boolean working;
+
+    public boolean isWorking() {
+        return working;
+    }
+
+    public void setWorking(boolean working) {
+        this.working = working;
+    }
+
+    public boolean isWorkingWithStock(String beer, int cant){
+        boolean goAhead=false;
+        // si no hay stock suficiente pero el productor esta trabajando, debe seguir esperando (wait)
+        if(this.stock.get(beer) < cant && isWorking()){
+            goAhead=true;
+        }
+        return goAhead;
+    }
 
     public BeerHouse() {
         this.stock= new HashMap<>();
@@ -32,16 +50,21 @@ public class BeerHouse {
     }
 
     public synchronized void Consume(String consName, String beer, int cant){
-        while (!this.stock.containsKey(beer) || this.stock.get(beer)< cant){
+        while (!this.stock.containsKey(beer) || isWorkingWithStock(beer,cant)){
             try {
                 System.out.println(consName+" is waiting for "+cant+" "+beer+" beers");
                 wait();
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        this.stock.replace(beer,this.stock.get(beer)-cant);
-        System.out.println(consName+" bought "+cant+" "+beer+" beers. now ("+this.stock.get(beer)+")");
+        if(!isWorking()){
+            Thread.currentThread().interrupt();
+        }
+        else {
+            this.stock.replace(beer, this.stock.get(beer) - cant);
+            System.out.println(consName + " bought " + cant + " " + beer + " beers. now (" + this.stock.get(beer) + ")");
+        }
         notifyAll();
     }
 }
