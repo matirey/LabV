@@ -8,4 +8,5 @@
 ### Funcionalidad: La que pide la consigna
 - Determina el ganador por la suma del valor de cartas.
 
-
+### UML
+![UML](https://github.com/matirey/LabV/blob/tp3/diagram.png)
