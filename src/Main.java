@@ -16,11 +16,7 @@ public class Main {
 
         MesaObservadora mesaOb = new MesaObservadora();
 
-        mesaOb.configInicial("mesa 1",jug1,jug2,jug3,jug4);
+        mesaOb.configInicial("asd",jug1,jug2,jug3,jug4);
 
-        jug1.start();
-        jug2.start();
-        jug3.start();
-        jug4.start();
     }
 }

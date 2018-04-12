@@ -78,35 +78,38 @@ public class Mesa extends Observable {
                 }
             }
             setAvailable(false);
-            if(!getMazo().empty()){
+            if(!getMazo().empty() && !isGameover()){
                 Carta carta = getMazo().pop();
                 darCarta(carta,nombre);
                 setChanged();
                 notifyObservers(nombre + carta.printCarta());
+                setAvailable(true);
+                notifyAll();
             }
             else{
                 this.setGameover(true);
-            }
-            if(isGameover()){
-                avisarGanador();
+                avisarResultado();
             }
 
-        setAvailable(true);
-        notifyAll();
+
     }
 
-    public void darCarta(Carta carta, String nombre){
+    public synchronized void darCarta(Carta carta, String nombre){
         if(j1.getNombre().equals(nombre)){
             j1.getMazo().add(carta);
+            j1.setPuntaje(carta.getNumero());
         }
         if(j2.getNombre().equals(nombre)){
             j2.getMazo().add(carta);
+            j2.setPuntaje(carta.getNumero());
         }
         if(j3.getNombre().equals(nombre)){
             j3.getMazo().add(carta);
+            j3.setPuntaje(carta.getNumero());
         }
         if(j4.getNombre().equals(nombre)){
             j4.getMazo().add(carta);
+            j4.setPuntaje(carta.getNumero());
         }
     }
 
@@ -117,22 +120,30 @@ public class Mesa extends Observable {
         this.j4=j4;
     }
 
-    public void avisarGanador(){
-            if(j1.cantCartas()>j2.cantCartas() && j1.cantCartas()>j3.cantCartas() && j1.cantCartas()>j4.cantCartas()){
+    public void avisarResultado(){
+            int pj1= j1.getPuntaje();
+            int pj2= j2.getPuntaje();
+            int pj3= j3.getPuntaje();
+            int pj4= j4.getPuntaje();
+            if(pj1>pj2 && pj1>pj3&& pj1>pj4){
                 setChanged();
                 notifyObservers(j1);
             }
-            if(j2.cantCartas()>j1.cantCartas() && j2.cantCartas()>j3.cantCartas() && j2.cantCartas()>j4.cantCartas()){
+            if(pj2>pj1 && pj2>pj3 && pj2>pj4){
                 setChanged();
                 notifyObservers(j2);
             }
-            if(j3.cantCartas()>j1.cantCartas() && j3.cantCartas()>j2.cantCartas() && j3.cantCartas()>j4.cantCartas()){
+            if(pj3>pj1 && pj3>pj2 && pj3>pj4){
                 setChanged();
                 notifyObservers(j3);
             }
-            if(j4.cantCartas()>j1.cantCartas() && j4.cantCartas()>j2.cantCartas() && j4.cantCartas()>j3.cantCartas()){
+            if(pj4>pj1 && pj4>pj2 && pj4>pj3){
                 setChanged();
                 notifyObservers(j4);
+            }
+            if(pj1==pj2 && pj1==pj3 && pj1==pj4){
+                setChanged();
+                notifyObservers(false);
             }
     }
 

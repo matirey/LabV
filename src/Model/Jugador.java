@@ -9,6 +9,7 @@ public class Jugador extends Thread{
     private String nombre;
     private Stack<Carta> Mazo;
     private Mesa mesa;
+    private int puntaje=0;
 
     public String getNombre() {
         return nombre;
@@ -35,6 +36,14 @@ public class Jugador extends Thread{
         return Mazo;
     }
 
+    public void setPuntaje(int p){
+        this.puntaje+=p;
+    }
+
+    public int getPuntaje(){
+        return puntaje;
+    }
+
     public void setMazo(Stack<Carta> mazo) {
         Mazo = mazo;
     }
@@ -43,7 +52,7 @@ public class Jugador extends Thread{
         while (!this.mesa.isGameover()){
                 this.mesa.sacarCarta(getNombre());
             try {
-                sleep(2000);
+                sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

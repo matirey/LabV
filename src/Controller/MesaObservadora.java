@@ -28,6 +28,7 @@ public class MesaObservadora implements Observer {
         m1.setJugadores(jug1,jug2,jug3,jug4);
         m1.setGameover(false);
         m1.setAvailable(true);
+        this.empezar();
     }
 
     public void inicMesa(String mesa){
@@ -49,10 +50,6 @@ public class MesaObservadora implements Observer {
         persist.generarJuego(mesa);
     }
 
-    public void guardarGanador(Jugador ganador){
-        persist.guardarGanador(ganador);
-    }
-
     public void empezar (){
         jug1.start();
         jug2.start();
@@ -68,8 +65,12 @@ public class MesaObservadora implements Observer {
         if (arg instanceof Jugador) {
             System.out.println("EL JUEGO HA FINALIZADO");
             System.out.println("EL GANADOR ES "+((Jugador) arg).getNombre().toUpperCase()+ " CON "
-                    +((Jugador) arg).cantCartas()+" CARTAS");
-            guardarGanador((Jugador)arg);
+                    +((Jugador) arg).getPuntaje()+" PUNTOS");
+            this.persist.guardarResultado(arg);
+        }
+        if(arg.equals(false)){
+            System.out.println("-- EMPATE (TODOS TIENEN LOS MISMOS PUNTOS)");
+            this.persist.guardarResultado(false);
         }
     }
 }

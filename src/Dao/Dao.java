@@ -23,16 +23,31 @@ public class Dao {
         }
     }
 
-    public void guardarGanador(Jugador jugador){
-        String dml = "insert into ganador values ((select max(id) from juegos), ?,?);";
-        try {
-            conn.conectar();
-            PreparedStatement st = conn.getConn().prepareStatement(dml);
-            st.setString(1, jugador.getName());
-            st.setInt(2,jugador.cantCartas());
-            st.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void guardarResultado(Object arg){
+        if(arg instanceof Jugador) {
+            Jugador j= (Jugador)arg;
+            String dml = "insert into resultados values ((select max(id) from juegos), ?,?);";
+            try {
+                conn.conectar();
+                PreparedStatement st = conn.getConn().prepareStatement(dml);
+                st.setString(1, j.getNombre());
+                st.setInt(2, j.getPuntaje());
+                st.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if(arg.equals(false)){
+            String dml = "insert into resultados values ((select max(id) from juegos), ?,?);";
+            try {
+                conn.conectar();
+                PreparedStatement st= conn.getConn().prepareStatement(dml);
+                st.setString(1,"empate");
+                st.setInt(2,12);
+                st.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
