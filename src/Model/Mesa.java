@@ -49,17 +49,12 @@ public class Mesa extends Observable {
 
     public void nuevoMazo(){
         this.Mazo= new Stack<>();
-        crearPalo(12,"oro");
-        crearPalo(12,"espada");
-        crearPalo(12,"basto");
-        crearPalo(12,"copa");
-    }
-
-    private void crearPalo(int cartas, String palo){
-        int i;
-        for(i=0;i<cartas;i++){
-            Carta nueva = new Carta(i+1,palo);
-            this.Mazo.push(nueva);
+        Iterator<String> it= Arrays.asList("Basto","Copa","Espada","Oro").iterator();
+        while(it.hasNext()){
+                String palo= it.next();
+                for (int i = 1; i < 13; i++) {
+                    this.Mazo.push(new Carta(i,palo));
+                }
         }
     }
 
